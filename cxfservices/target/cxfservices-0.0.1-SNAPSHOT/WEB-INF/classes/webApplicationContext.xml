@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:cxf="http://cxf.apache.org/core" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- CXF Resources -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.test" />
+	
+	<!-- <bean id="studentService" class="com.test.cxf.StudentServiceImpl"/> -->
+	<bean id="creditService" class="com.test.cxf.CreditReportServiceImpl"/>
+	
+	<bean id="currencyConvertorService" class="com.test.cxf.CurrencyConvertorSoapImpl"/>
+	
+	<bean id="exceptionProvider" class="com.test.cxf.ExceptionHandler" />
+	
+	<bean id="customRequestInterceptor" class="com.test.cxf.CustomRequestInterceptor"/>
+ 	
+	<jaxrs:server id="appServices" address="/"><!-- <jaxrs:server id="appServices" address="/rest"> -->
+		<jaxrs:serviceBeans>
+			<ref bean="studentService" />
+			<ref bean="creditService" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="exceptionProvider"/>
+			<ref bean="customRequestInterceptor"/>
+		</jaxrs:providers>
+	</jaxrs:server>
+	
+	<jaxws:endpoint id="creditSoapService"  implementor="#creditService"   address="/creditService" />
+	<jaxws:endpoint id="currencySoapService"  implementor="#currencyConvertorService"   address="/currencyConverter" />
+	
+	
+</beans>

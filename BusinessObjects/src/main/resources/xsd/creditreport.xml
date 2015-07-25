@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:CreditRequest xmlns:tns="http://www.test.bank.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.test.bank.com/ creditreport.xsd ">
+  <tns:ssn>tns:ssn</tns:ssn>
+  <tns:fname>tns:fname</tns:fname>
+  <tns:dob>tns:dob</tns:dob>
+  <tns:zipcode>tns:zipcode</tns:zipcode>
+</tns:CreditRequest>
